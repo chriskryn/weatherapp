@@ -14,7 +14,7 @@ import SwiftMessages
 final class WAMapViewController: UIViewController {
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var mapView: MKMapView!
-
+    var launch = false
     final private let kWAshowDetailScreen = "kWAShowDetails"
     final private var selectedCoordinates: CLLocationCoordinate2D?
     final private func setupErrors() {
@@ -51,7 +51,8 @@ final class WAMapViewController: UIViewController {
 
 extension WAMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if let coordinates = mapView.userLocation.location?.coordinate {
+        if let coordinates = mapView.userLocation.location?.coordinate, self.launch == false {
+            self.launch = true
             self.mapView.setCenter(coordinates, animated: true)
         }
     }
