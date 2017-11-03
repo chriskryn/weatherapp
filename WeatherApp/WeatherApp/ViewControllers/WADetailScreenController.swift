@@ -14,10 +14,10 @@ final class WADetailScreenController: UIViewController {
     var coordinates: CLLocationCoordinate2D?
 
     @IBOutlet private weak var weatherIcon: UIImageView!
-    @IBOutlet private  weak var temperatureLabel: UILabel!
+    @IBOutlet private weak var temperatureLabel: UILabel!
     @IBOutlet private weak var cityLabel: UILabel!
     @IBOutlet private weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var hiLoLabel: UILabel!
+    @IBOutlet private weak var hiLoLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,17 +25,17 @@ final class WADetailScreenController: UIViewController {
         self.temperatureLabel.isHidden = true
         self.weatherIcon.isHidden = true
         if let cords = coordinates {
-            WAWeatherGetter.getWeather(coordinates: cords) { (condition, _) in
+            WAWeatherGetter.getWeather(coordinates: cords) {[weak self] (condition, _) in
                 if let weatherCondition = condition {
-                    self.updateWeatherView(condition: weatherCondition)
+                    self?.updateWeatherView(condition: weatherCondition)
                 } else {
-                    self.showError()
+                    self?.showError()
                 }
             }
         }
     }
 
-    func updateWeatherView(condition: WACondition) {
+    final private func updateWeatherView(condition: WACondition) {
         let formatter = MeasurementFormatter()
         let measurement = Measurement(value: Double(condition.temperature), unit: UnitTemperature.celsius)
         self.temperatureLabel.isHidden = false
@@ -52,7 +52,7 @@ final class WADetailScreenController: UIViewController {
         super.viewWillAppear(animated)
     }
 
-    func showError() {
+    final private func showError() {
         let view = MessageView.viewFromNib(layout: .cardView)
         view.configureTheme(.error)
         view.configureContent(title: "Error", body: "Network Request failed.")

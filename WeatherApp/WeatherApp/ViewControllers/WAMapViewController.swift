@@ -13,8 +13,8 @@ import SwiftMessages
 
 final class WAMapViewController: UIViewController {
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
-    @IBOutlet weak var mapView: MKMapView!
-    var launch = false
+    @IBOutlet final private weak var mapView: MKMapView!
+    final private var launch = false
     final private let kWAshowDetailScreen = "kWAShowDetails"
     final private var selectedCoordinates: CLLocationCoordinate2D?
     final private var locationManager = CLLocationManager()
@@ -22,6 +22,7 @@ final class WAMapViewController: UIViewController {
         super.viewDidLoad()
         self.tapGestureRecognizer.numberOfTapsRequired = 2
         self.tapGestureRecognizer.addTarget(self, action: #selector(self.didDoupleTapedMap))
+        self.tapGestureRecognizer.delegate = self
         self.mapView.delegate = self
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse, .authorizedAlways:
@@ -47,6 +48,15 @@ final class WAMapViewController: UIViewController {
             let detailController = segue.destination as? WADetailScreenController {
             detailController.coordinates = self.selectedCoordinates
         }
+    }
+}
+
+extension WAMapViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+        ) -> Bool {
+        return true
     }
 }
 
