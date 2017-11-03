@@ -17,17 +17,18 @@ final class WAMapViewController: UIViewController {
     var launch = false
     final private let kWAshowDetailScreen = "kWAShowDetails"
     final private var selectedCoordinates: CLLocationCoordinate2D?
-    final private func setupErrors() {
-
-    }
-
+    final private var locationManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        CLLocationManager().requestWhenInUseAuthorization()
-        self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
         self.tapGestureRecognizer.numberOfTapsRequired = 2
         self.tapGestureRecognizer.addTarget(self, action: #selector(self.didDoupleTapedMap))
+        self.mapView.delegate = self
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.mapView.showsUserLocation = true
+        default:
+            self.locationManager.requestWhenInUseAuthorization()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -64,5 +65,11 @@ extension WAMapViewController: MKMapViewDelegate {
             view.configureContent(title: "Error", body: "Failed showing user location")
             SwiftMessages.show(view: view)
         }
+    }
+}
+
+extension WAMapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        self.mapView.showsUserLocation = true
     }
 }

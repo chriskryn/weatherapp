@@ -3,8 +3,8 @@ use_frameworks!
 
 target 'WeatherApp' do
   pod 'Alamofire'
-  pod 'SwiftyJSON'
   pod 'SwiftMessages'
+  pod 'SwiftyJSON'
   target 'WeatherAppTests' do
       inherit! :search_paths
       pod 'OHHTTPStubs'
