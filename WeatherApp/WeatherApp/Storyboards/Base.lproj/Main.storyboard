@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O14-vT-gHW">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Weather App-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="Weather App" id="BYZ-38-t0r" customClass="WAMapViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32q-Bz-ye9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="hEd-W6-wCe" appends="YES" id="WbA-bt-ecs"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="32q-Bz-ye9" secondAttribute="trailing" id="8aG-uX-jwE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="32q-Bz-ye9" secondAttribute="bottom" id="JW8-4z-xdM"/>
+                            <constraint firstItem="32q-Bz-ye9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="P4J-ro-ne8"/>
+                            <constraint firstItem="32q-Bz-ye9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="PZY-hq-yjg"/>
+                            <constraint firstItem="32q-Bz-ye9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UNT-9g-60X"/>
+                            <constraint firstItem="32q-Bz-ye9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pbf-gS-fXM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Weather App" id="VAw-Dk-HEm"/>
+                    <connections>
+                        <outlet property="mapView" destination="32q-Bz-ye9" id="SiC-k5-p5t"/>
+                        <outlet property="tapGestureRecognizer" destination="hEd-W6-wCe" id="E95-JZ-eWk"/>
+                        <segue destination="bky-7X-7Ss" kind="show" identifier="kWAShowDetails" id="Uc7-2l-ie4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="hEd-W6-wCe"/>
+            </objects>
+            <point key="canvasLocation" x="1008.8" y="31.934032983508249"/>
+        </scene>
+        <!--Detail Screen Controller-->
+        <scene sceneID="EEG-Bz-O0f">
+            <objects>
+                <tableViewController id="bky-7X-7Ss" customClass="WADetailScreenController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fjc-FT-lWw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="kWAMainCell" id="8NX-mI-iph">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8NX-mI-iph" id="Kwa-sn-KSW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bky-7X-7Ss" id="Uxe-b2-5FF"/>
+                            <outlet property="delegate" destination="bky-7X-7Ss" id="E0F-Cc-ztN"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pH1-KZ-bjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1788" y="31.934032983508249"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="th2-9d-cOo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="O14-vT-gHW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eIQ-BL-jCb">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ggE-Th-hSw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p3V-Jz-W18" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="32"/>
+        </scene>
+    </scenes>
+</document>
