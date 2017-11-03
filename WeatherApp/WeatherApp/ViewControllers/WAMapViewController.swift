@@ -18,6 +18,7 @@ final class WAMapViewController: UIViewController {
     final private let kWAshowDetailScreen = "kWAShowDetails"
     final private var selectedCoordinates: CLLocationCoordinate2D?
     final private var locationManager = CLLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tapGestureRecognizer.numberOfTapsRequired = 2
