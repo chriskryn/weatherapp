@@ -7,23 +7,38 @@
 //
 
 import XCTest
+import CoreLocation
+import Alamofire
+import SwiftyJSON
+
 @testable import WeatherApp
 
 class WeatherAppTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testApiCall() {
+        let expectation = self.expectation(description: "Call Expextation")
+        let location = CLLocationCoordinate2D(latitude: 52.237049, longitude: 21.017532)
+        WAWeatherGetter.getWeather(coordinates: location) { (response, error) in
+            if response != nil {
+                print("Response \(String(describing: response))")
+                expectation.fulfill()
+            } else {
+                XCTFail("Error \(String(describing: error?.localizedDescription))")
+            }
+        }
+        self.waitForExpectations(timeout: 5) { (error) in
+            if error != nil {
+                XCTAssert(false)
+            }
+        }
     }
 
     func testPerformanceExample() {
