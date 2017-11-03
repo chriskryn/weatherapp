@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SwiftMessages
 
 final class WAMapViewController: UIViewController {
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
@@ -56,6 +57,11 @@ extension WAMapViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
-        print("Error \(error.localizedDescription)")
+        func showError() {
+            let view = MessageView.viewFromNib(layout: .cardView)
+            view.configureTheme(.error)
+            view.configureContent(title: "Error", body: "Failed showing user location")
+            SwiftMessages.show(view: view)
+        }
     }
 }
